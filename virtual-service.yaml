@@ -18,5 +18,5 @@ metadata:
   namespace: testing-1
 spec:
   ports:
-    - port: 8080
+    - port: 9080
       name: http

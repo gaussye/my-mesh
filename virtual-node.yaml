@@ -9,7 +9,7 @@ spec:
       app: java-demo
   listeners:
     - portMapping:
-        port: 8080
+        port: 9080
         protocol: http
   serviceDiscovery:
     dns:
@@ -32,10 +32,10 @@ spec:
     spec:
       containers:
         - name: app
-          image: 216059448262.dkr.ecr.us-east-1.amazonaws.com/microservice-demo/colorapp:v1
+          image: 672518094988.dkr.ecr.us-west-2.amazonaws.com/hello-world:v1.0
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 9080
           env:
             - name: "COLOR"
               value: "v1"
@@ -48,7 +48,7 @@ metadata:
   namespace: testing-1
 spec:
   ports:
-    - port: 8080
+    - port: 9080
       name: http
   selector:
     app: java-demo
