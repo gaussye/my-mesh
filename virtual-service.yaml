@@ -1,0 +1,22 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualService
+metadata:
+  name: java-demo-vs
+  namespace: testing-1
+spec:
+  awsName: java-demo-svc.testing-1.svc.cluster.local
+  provider:
+    virtualRouter:
+      virtualRouterRef:
+        name: java-demo-vr
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-demo-svc
+  namespace: testing-1
+spec:
+  ports:
+    - port: 8080
+      name: http
