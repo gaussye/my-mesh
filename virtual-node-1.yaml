@@ -1,0 +1,54 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualNode
+metadata:
+  name: java-demo-vn-1
+  namespace: testing-1
+spec:
+  podSelector:
+    matchLabels:
+      app: java-demo
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  serviceDiscovery:
+    dns:
+      hostname: java-demo.testing-1.svc.cluster.local
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: v1
+  namespace: testing-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-demo-1
+  template:
+    metadata:
+      labels:
+        app: java-demo-1
+    spec:
+      containers:
+        - name: app
+          image: 216059448262.dkr.ecr.us-east-1.amazonaws.com/microservice-demo/colorapp:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9080
+          env:
+            - name: "COLOR"
+              value: "v1"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-demo-1
+  namespace: testing-1
+spec:
+  ports:
+    - port: 9080
+      name: http
+  selector:
+    app: java-demo-1
