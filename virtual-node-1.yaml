@@ -6,14 +6,14 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: java-demo
+      app: java-demo-1
   listeners:
     - portMapping:
         port: 9080
         protocol: http
   serviceDiscovery:
     dns:
-      hostname: java-demo.testing-1.svc.cluster.local
+      hostname: java-demo-1.testing-1.svc.cluster.local
 ---
 apiVersion: apps/v1
 kind: Deployment
